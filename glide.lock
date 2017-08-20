@@ -1,6 +1,10 @@
-hash: c5a8094b7bdc637d03f6916e1692a8f6e309c9d69e06a79744ef79b8eabbc638
-updated: 2017-08-20T00:18:49.816170892Z
+hash: b19268b8c54640b8046f46cda16d9885e45cf075b7263d31871e69c2eceab96c
+updated: 2017-08-20T00:26:00.780092703Z
 imports:
+- name: cloud.google.com/go
+  version: 44bcd0b2078ba5e7fedbeb36808d1ed893534750
+  subpackages:
+  - compute
 - name: github.com/davecgh/go-spew
   version: 5215b55f46b2b919f50a1df0eaa5886afe4e3b3d
   subpackages:
@@ -13,6 +17,8 @@ imports:
   version: bb955e01b9346ac19dc29eb16586c90ded99a98c
 - name: github.com/eapache/queue
   version: d1df561eb6b9ffdac8dd98f943e9e9096c76c059
+- name: github.com/golang/glog
+  version: 23def4e6c14b4da8ac2ed8007337bc5eb5007998
 - name: github.com/golang/protobuf
   version: 8ee79997227bf9b34611aee7946ae64735e6fd93
   subpackages:
@@ -71,10 +77,18 @@ imports:
   - internal/timeseries
   - lex/httplex
   - trace
+- name: golang.org/x/oauth2
+  version: cce311a261e6fcf29de72ca96827bdb0b7d9c9e6
 - name: golang.org/x/sys
   version: d75a52659825e75fff6158388dddc6a5b04f9ba5
   subpackages:
   - unix
+- name: golang.org/x/text
+  version: e56139fd9c5bc7244c76116c68e500765bb6db6b
+- name: google.golang.org/genproto
+  version: aa2eb687b4d3e17154372564ad8d6bf11c3cf21f
+  subpackages:
+  - protobuf
 - name: google.golang.org/grpc
   version: 708a7f9f3283aa2d4f6132d287d78683babe55c8
   subpackages:
@@ -90,6 +104,8 @@ imports:
   - transport
 - name: gopkg.in/check.v1
   version: 20d25e2804050c1cd24a7eea1e7a6447dd0e74ec
+- name: gopkg.in/gemnasium/logrus-airbrake-hook.v2
+  version: 4df90cbe1e7c9b140b0551052dadb88397c82ca9
 - name: gopkg.in/yaml.v2
   version: 31c299268d302dd0aa9a0dcf765a3d58971ac83f
 testImports: []

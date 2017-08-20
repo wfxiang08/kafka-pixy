@@ -90,3 +90,15 @@ import:
 - package: gopkg.in/yaml.v2
   version: 31c299268d302dd0aa9a0dcf765a3d58971ac83f
 - package: gopkg.in/check.v1
+- package: golang.org/x/oauth2
+- package: github.com/golang/glog
+- package: cloud.google.com/go
+  version: v0.11.0
+  subpackages:
+  - compute
+- package: google.golang.org/genproto
+  subpackages:
+  - protobuf
+- package: gopkg.in/gemnasium/logrus-airbrake-hook.v2
+  version: v3.0.1
+- package: golang.org/x/text
