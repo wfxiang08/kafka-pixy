@@ -1,0 +1,92 @@
+package: github.com/mailgun/kafka-pixy
+import:
+- package: github.com/Shopify/sarama
+  version: c01858abb625b73a3af51d0798e4ad42c8147093
+- package: github.com/davecgh/go-spew
+  version: 5215b55f46b2b919f50a1df0eaa5886afe4e3b3d
+  subpackages:
+  - spew
+- package: github.com/eapache/go-resiliency
+  version: 6800482f2c813e689c88b7ed3282262385011890
+  subpackages:
+  - breaker
+- package: github.com/eapache/go-xerial-snappy
+  version: bb955e01b9346ac19dc29eb16586c90ded99a98c
+- package: github.com/eapache/queue
+  version: d1df561eb6b9ffdac8dd98f943e9e9096c76c059
+- package: github.com/golang/protobuf
+  version: 8ee79997227bf9b34611aee7946ae64735e6fd93
+  subpackages:
+  - proto
+- package: github.com/golang/snappy
+  version: 1963d058044b19e16595f80d5050fa54e2070438
+- package: github.com/gorilla/context
+  version: 215affda49addc4c8ef7e2534915df2c8c35c6cd
+- package: github.com/gorilla/mux
+  version: 8096f47503459bcc74d1f4c487b7e6e42e5746b5
+- package: github.com/mailgun/holster
+  version: 91db52db577949c04574aa1e5ca38c36ab92e4c0
+  subpackages:
+  - errors
+  - stack
+- package: github.com/mailgun/logrus-hooks
+  version: 5ee121b6e962bf95caf2804f475bfcb9305ba6f6
+  subpackages:
+  - common
+  - kafkahook
+  - levelfilter
+- package: github.com/mailru/easyjson
+  version: 2f5df55504ebc322e4d52d34df6a1f5b503bf26d
+  subpackages:
+  - buffer
+  - jlexer
+  - jwriter
+- package: github.com/pierrec/lz4
+  version: 90290f74b1b4d9c097f0a3b3c7eba2ef3875c699
+- package: github.com/pierrec/xxHash
+  version: 5a004441f897722c627870a981d02b29924215fa
+  subpackages:
+  - xxHash32
+- package: github.com/pkg/errors
+  version: 248dadf4e9068a0b3e79f02ed0a610d935de5302
+- package: github.com/rcrowley/go-metrics
+  version: 1f30fe9094a513ce4c700b9a54458bbb0c96996c
+- package: github.com/samuel/go-zookeeper
+  version: 1d7be4effb13d2d908342d349d71a284a7542693
+  subpackages:
+  - zk
+- package: github.com/sirupsen/logrus
+  version: 7f976d3a76720c4c27af2ba716b85d2e0a7e38b1
+  subpackages:
+  - hooks/syslog
+- package: github.com/wvanbergen/kazoo-go
+  version: 968957352185472eacb69215fa3dbfcfdbac1096
+- package: golang.org/x/net
+  version: b400c2eff1badec7022a8c8f5bea058b6315eed7
+  subpackages:
+  - context
+  - http2
+  - http2/hpack
+  - internal/timeseries
+  - lex/httplex
+  - trace
+- package: golang.org/x/sys
+  version: d75a52659825e75fff6158388dddc6a5b04f9ba5
+  subpackages:
+  - unix
+- package: google.golang.org/grpc
+  version: 708a7f9f3283aa2d4f6132d287d78683babe55c8
+  subpackages:
+  - codes
+  - credentials
+  - grpclog
+  - internal
+  - metadata
+  - naming
+  - peer
+  - stats
+  - tap
+  - transport
+- package: gopkg.in/yaml.v2
+  version: 31c299268d302dd0aa9a0dcf765a3d58971ac83f
+- package: gopkg.in/check.v1
