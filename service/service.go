@@ -40,6 +40,7 @@ func Spawn(cfg *config.App) (*T, error) {
 
 	proxySet := proxy.NewSet(s.proxies, s.proxies[cfg.DefaultCluster])
 
+	// 如何使用gRPC呢？
 	if cfg.GRPCAddr != "" {
 		grpcSrv, err := grpcsrv.New(cfg.GRPCAddr, proxySet)
 		if err != nil {
