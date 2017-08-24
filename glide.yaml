@@ -127,3 +127,5 @@ import:
 - package: github.com/google/go-cmp
 - package: github.com/mailgun/mailgun-go
   version: v1.1.0
+- package: github.com/spf13/cast
+  version: v1.1.0

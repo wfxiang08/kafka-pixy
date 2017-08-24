@@ -1,5 +1,5 @@
-hash: b183926502f6040cb42caf801958827db49d3ac8167853ff0292b57b9f566a23
-updated: 2017-08-24T09:09:59.395424127+08:00
+hash: 6fdedb25d0a3491754c2eeb11bb826c39360df59b86df781c23d93a4805aa0fe
+updated: 2017-08-24T09:11:57.216819573+08:00
 imports:
 - name: cloud.google.com/go
   version: 44bcd0b2078ba5e7fedbeb36808d1ed893534750
@@ -90,6 +90,8 @@ imports:
   version: 7f976d3a76720c4c27af2ba716b85d2e0a7e38b1
   subpackages:
   - hooks/syslog
+- name: github.com/spf13/cast
+  version: acbeb36b902d72a7a4c18e8f3241075e7ab763e4
 - name: github.com/thrawn01/args
   version: 1cbcd84b8f3ef6e4e30b24aaf614aeb6776f227b
 - name: github.com/wvanbergen/kazoo-go
