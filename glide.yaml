@@ -102,3 +102,28 @@ import:
 - package: gopkg.in/gemnasium/logrus-airbrake-hook.v2
   version: v3.0.1
 - package: golang.org/x/text
+- package: golang.org/x/tools
+- package: google.golang.org/api
+  subpackages:
+  - transport
+- package: github.com/googleapis/gax-go
+- package: golang.org/x/crypto
+- package: github.com/codegangsta/cli
+- package: gopkg.in/mgo.v2
+  subpackages:
+  - bson
+- package: github.com/thrawn01/args
+- package: github.com/coreos/etcd
+- package: github.com/mailgun/cfg
+- package: github.com/mailgun/sandra
+- package: github.com/mailgun/metrics
+- package: github.com/fatih/structs
+- package: github.com/golang/geo
+- package: golang.org/x/sync
+- package: golang.org/x/debug
+- package: golang.org/x/time
+- package: github.com/golang/mock
+- package: github.com/google/pprof
+- package: github.com/google/go-cmp
+- package: github.com/mailgun/mailgun-go
+  version: v1.1.0
