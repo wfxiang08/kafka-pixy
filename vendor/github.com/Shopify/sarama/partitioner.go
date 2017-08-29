@@ -133,3 +133,29 @@ func (p *hashPartitioner) Partition(message *ProducerMessage, numPartitions int3
 func (p *hashPartitioner) RequiresConsistency() bool {
 	return true
 }
+
+
+
+type reqAassignPartitioner struct{
+	random Partitioner
+}
+
+// NewManualPartitioner returns a Partitioner which uses the partition manually set in the provided
+// ProducerMessage's Partition field as the partition to produce to.
+func NewReqAassignPartitioner(topic string) Partitioner {
+	p := new(reqAassignPartitioner)
+	p.random = NewRandomPartitioner(topic)
+	return p
+}
+
+func (p *reqAassignPartitioner) Partition(message *ProducerMessage, numPartitions int32) (int32, error) {
+	if message.Partition < 0 || message.Partition >= numPartitions {
+		return p.random.Partition(message, numPartitions)
+	}
+
+	return message.Partition, nil
+}
+
+func (p *reqAassignPartitioner) RequiresConsistency() bool {
+	return true
+}

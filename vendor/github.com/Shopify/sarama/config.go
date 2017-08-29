@@ -264,7 +264,7 @@ func NewConfig() *Config {
 	c.Producer.MaxMessageBytes = 1000000
 	c.Producer.RequiredAcks = WaitForLocal
 	c.Producer.Timeout = 10 * time.Second
-	c.Producer.Partitioner = NewHashPartitioner
+	c.Producer.Partitioner = NewReqAassignPartitioner
 	c.Producer.Retry.Max = 3
 	c.Producer.Retry.Backoff = 100 * time.Millisecond
 	c.Producer.Return.Errors = true

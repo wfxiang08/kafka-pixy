@@ -66,6 +66,7 @@ type ProdRq struct {
 	//  * wait_for_all:   the response is returned after all in-sync replicas
 	//                    have data committed to disk.
 	AsyncMode bool `protobuf:"varint,6,opt,name=async_mode,json=asyncMode" json:"async_mode,omitempty"`
+	Partition int32 `protobuf:"int32,7,opt,name=partition" json:"partition,omitempty"`
 }
 
 func (m *ProdRq) Reset()                    { *m = ProdRq{} }
