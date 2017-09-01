@@ -45,6 +45,7 @@ type produceResult struct {
 // Spawn creates a producer instance and starts its internal goroutines.
 func Spawn(parentActDesc *actor.Descriptor, cfg *config.Proxy) (*T, error) {
 	saramaCfg := cfg.SaramaProducerCfg()
+	// 在这里可以定制Partition算法
 	saramaCfg.Producer.Return.Successes = true
 	saramaCfg.Producer.Return.Errors = true
 

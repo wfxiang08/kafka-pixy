@@ -24,6 +24,7 @@ var (
 	logger = log.New(os.Stderr, "", log.LstdFlags)
 )
 
+// ./consumer -brokers xxx -topic xxxx -partitions all -offset newest
 func main() {
 	flag.Parse()
 
@@ -49,11 +50,13 @@ func main() {
 		printUsageErrorAndExit("-offset should be `oldest` or `newest`")
 	}
 
+	// 1. 创建Consumer
 	c, err := sarama.NewConsumer(strings.Split(*brokerList, ","), nil)
 	if err != nil {
 		printErrorAndExit(69, "Failed to start consumer: %s", err)
 	}
 
+	// 2. partitions
 	partitionList, err := getPartitions(c)
 	if err != nil {
 		printErrorAndExit(69, "Failed to get the list of partitions: %s", err)
@@ -65,6 +68,7 @@ func main() {
 		wg       sync.WaitGroup
 	)
 
+	// 等待退出
 	go func() {
 		signals := make(chan os.Signal, 1)
 		signal.Notify(signals, os.Kill, os.Interrupt)
@@ -74,17 +78,22 @@ func main() {
 	}()
 
 	for _, partition := range partitionList {
+		// 创建Parition Consumer
 		pc, err := c.ConsumePartition(*topic, partition, initialOffset)
 		if err != nil {
 			printErrorAndExit(69, "Failed to start consumer for partition %d: %s", partition, err)
 		}
 
+		// 等待closing?
+		// close 会导致所有的 <-closing都反应
 		go func(pc sarama.PartitionConsumer) {
 			<-closing
+			// 异步关闭，然后下面的golang就会很快执行完毕
 			pc.AsyncClose()
 		}(pc)
 
 		wg.Add(1)
+		// 注意golang的处理逻辑
 		go func(pc sarama.PartitionConsumer) {
 			defer wg.Done()
 			for message := range pc.Messages() {

@@ -63,6 +63,7 @@ func main() {
 		printErrorAndExit(69, "Failed to start consumer: %s", err)
 	}
 
+	// 当个的ConsumePartition?
 	pc, err := c.ConsumePartition(*topic, int32(*partition), initialOffset)
 	if err != nil {
 		printErrorAndExit(69, "Failed to start partition consumer: %s", err)

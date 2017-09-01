@@ -71,6 +71,7 @@ func main() {
 		message.Key = sarama.StringEncoder(*key)
 	}
 
+	// 如何控制输入呢?
 	if *value != "" {
 		message.Value = sarama.StringEncoder(*value)
 	} else if stdinAvailable() {

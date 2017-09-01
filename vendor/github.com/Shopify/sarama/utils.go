@@ -23,6 +23,9 @@ func (slice int32Slice) Swap(i, j int) {
 	slice[i], slice[j] = slice[j], slice[i]
 }
 
+//
+// 复制一份，并按照升序排列
+//
 func dupeAndSort(input []int32) []int32 {
 	ret := make([]int32, 0, len(input))
 	for _, val := range input {
@@ -43,6 +46,7 @@ func withRecover(fn func()) {
 		}
 	}()
 
+	// 异常处理保护
 	fn()
 }
 
@@ -94,6 +98,7 @@ func (b ByteEncoder) Length() int {
 
 // bufConn wraps a net.Conn with a buffer for reads to reduce the number of
 // reads that trigger syscalls.
+// 为net.Conn增加Buffer
 type bufConn struct {
 	net.Conn
 	buf *bufio.Reader

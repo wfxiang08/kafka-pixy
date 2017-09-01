@@ -25,6 +25,7 @@ type Partitioner interface {
 // PartitionerConstructor is the type for a function capable of constructing new Partitioners.
 type PartitionerConstructor func(topic string) Partitioner
 
+//////////////////////////////////////////////////////////////////////
 type manualPartitioner struct{}
 
 // NewManualPartitioner returns a Partitioner which uses the partition manually set in the provided
@@ -33,6 +34,7 @@ func NewManualPartitioner(topic string) Partitioner {
 	return new(manualPartitioner)
 }
 
+// 手动Partition, 则直接follow输入的数据
 func (p *manualPartitioner) Partition(message *ProducerMessage, numPartitions int32) (int32, error) {
 	return message.Partition, nil
 }
@@ -41,6 +43,7 @@ func (p *manualPartitioner) RequiresConsistency() bool {
 	return true
 }
 
+//////////////////////////////////////////////////////////////////////
 type randomPartitioner struct {
 	generator *rand.Rand
 }
@@ -52,6 +55,7 @@ func NewRandomPartitioner(topic string) Partitioner {
 	return p
 }
 
+// 随机，不考虑已有的情况
 func (p *randomPartitioner) Partition(message *ProducerMessage, numPartitions int32) (int32, error) {
 	return int32(p.generator.Intn(int(numPartitions))), nil
 }
@@ -60,6 +64,7 @@ func (p *randomPartitioner) RequiresConsistency() bool {
 	return false
 }
 
+//////////////////////////////////////////////////////////////////////
 type roundRobinPartitioner struct {
 	partition int32
 }
@@ -82,6 +87,7 @@ func (p *roundRobinPartitioner) RequiresConsistency() bool {
 	return false
 }
 
+//////////////////////////////////////////////////////////////////////
 type hashPartitioner struct {
 	random Partitioner
 	hasher hash.Hash32
@@ -112,6 +118,7 @@ func NewHashPartitioner(topic string) Partitioner {
 
 func (p *hashPartitioner) Partition(message *ProducerMessage, numPartitions int32) (int32, error) {
 	if message.Key == nil {
+		// 如果没有Key, 则Random partition
 		return p.random.Partition(message, numPartitions)
 	}
 	bytes, err := message.Key.Encode()

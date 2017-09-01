@@ -41,6 +41,7 @@ type syncProducer struct {
 func NewSyncProducer(addrs []string, config *Config) (SyncProducer, error) {
 	if config == nil {
 		config = NewConfig()
+		// 等待成功?
 		config.Producer.Return.Successes = true
 	}
 
@@ -48,6 +49,7 @@ func NewSyncProducer(addrs []string, config *Config) (SyncProducer, error) {
 		return nil, err
 	}
 
+	// 创建同步的Producer
 	p, err := NewAsyncProducer(addrs, config)
 	if err != nil {
 		return nil, err
@@ -99,6 +101,10 @@ func (sp *syncProducer) SendMessage(msg *ProducerMessage) (partition int32, offs
 	msg.Metadata = expectation
 	sp.producer.Input() <- msg
 
+	// 如何通信呢?
+	// Input进去
+	// Metadata返回结果
+	// 如果成对出现，就是同步
 	if err := <-expectation; err != nil {
 		return -1, -1, err.Err
 	}

@@ -229,12 +229,14 @@ func (p *asyncProducer) dispatcher() {
 	handlers := make(map[string]chan<- *ProducerMessage)
 	shuttingDown := false
 
+	// 消费输入的消息
 	for msg := range p.input {
 		if msg == nil {
 			Logger.Println("Something tried to send a nil message, it was ignored.")
 			continue
 		}
 
+		// shutdown消息，应该是最后一个有效的消息
 		if msg.flags&shutdown != 0 {
 			shuttingDown = true
 			p.inFlight.Done()
@@ -259,6 +261,7 @@ func (p *asyncProducer) dispatcher() {
 			continue
 		}
 
+		// 通过Topic来穿件Producer
 		handler := handlers[msg.Topic]
 		if handler == nil {
 			handler = p.newTopicProducer(msg.Topic)
@@ -293,7 +296,7 @@ func (p *asyncProducer) newTopicProducer(topic string) chan<- *ProducerMessage {
 		input:       input,
 		breaker:     breaker.New(3, 1, 10*time.Second),
 		handlers:    make(map[int32]chan<- *ProducerMessage),
-		partitioner: p.conf.Producer.Partitioner(topic),
+		partitioner: p.conf.Producer.Partitioner(topic),  // 创建一个Paritioner
 	}
 	go withRecover(tp.dispatch)
 	return input
