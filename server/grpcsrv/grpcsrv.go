@@ -85,11 +85,11 @@ func (s *T) Produce(ctx context.Context, req *pb.ProdRq) (*pb.ProdRs, error) {
 	}
 
 	if req.AsyncMode {
-		pxy.AsyncProduce(req.Topic, keyEncoderFor(req), sarama.StringEncoder(req.Message))
+		pxy.AsyncProduce(req.Topic, req.Partition, keyEncoderFor(req), sarama.StringEncoder(req.Message))
 		return &pb.ProdRs{Partition: -1, Offset: -1}, nil
 	}
 
-	prodMsg, err := pxy.Produce(req.Topic, keyEncoderFor(req), sarama.StringEncoder(req.Message))
+	prodMsg, err := pxy.Produce(req.Topic, req.Partition, keyEncoderFor(req), sarama.StringEncoder(req.Message))
 	if err != nil {
 		switch err {
 		case sarama.ErrUnknownTopicOrPartition:

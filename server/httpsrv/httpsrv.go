@@ -22,6 +22,7 @@ import (
 	"github.com/mailgun/kafka-pixy/prettyfmt"
 	"github.com/mailgun/kafka-pixy/proxy"
 	"github.com/pkg/errors"
+	"log"
 )
 
 const (
@@ -153,8 +154,29 @@ func (s *T) handleProduce(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	topic := mux.Vars(r)[prmTopic]
+
 	key := getParamBytes(r, prmKey)
 	_, isSync := r.Form[prmSync]
+
+	partition := int32(-1)
+
+	if vs := r.Form.Get(prmPartition);vs != "" {
+		vi, err := strconv.ParseInt(vs, 10, 32)
+
+		if err != nil {
+			s.respondWithJSON(w, http.StatusBadRequest, errorRs{err.Error()})
+			return
+		}
+
+		partition = int32(vi)
+	}
+
+	log.Printf("key: %v, partition: %v, isSync: %v", key, partition, isSync)
+
+	if err != nil {
+		s.respondWithJSON(w, http.StatusBadRequest, errorRs{err.Error()})
+		return
+	}
 
 	// Get the message body from the HTTP request.
 	var msg sarama.Encoder
@@ -163,14 +185,17 @@ func (s *T) handleProduce(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	log.Printf("key: %v, partition: %v, isSync: %v, msg: %v", key, partition, isSync, msg)
+
 	// Asynchronously submit the message to the Kafka cluster.
 	if !isSync {
-		pxy.AsyncProduce(topic, toEncoderPreservingNil(key), msg)
+		pxy.AsyncProduce(topic, partition, toEncoderPreservingNil(key), msg)
 		s.respondWithJSON(w, http.StatusOK, EmptyResponse)
 		return
 	}
 
-	prodMsg, err := pxy.Produce(topic, toEncoderPreservingNil(key), msg)
+	prodMsg, err := pxy.Produce(topic, partition, toEncoderPreservingNil(key), msg)
+	log.Printf("msg: %v, err: %v", prodMsg, err)
 	if err != nil {
 		var status int
 		switch err {

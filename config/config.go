@@ -380,7 +380,7 @@ func (p *Proxy) validate() error {
 
 func newApp() *App {
 	appCfg := &App{}
-	appCfg.GRPCAddr = "0.0.0.0:19091"
+	//appCfg.GRPCAddr = "0.0.0.0:19091"
 	appCfg.TCPAddr = "0.0.0.0:19092"
 	appCfg.Proxies = make(map[string]*Proxy)
 	return appCfg

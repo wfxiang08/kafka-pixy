@@ -20,7 +20,9 @@ _cgo_gotypes.go
 _cgo_export.*
 
 _testmain.go
-
+/main
+/config.yaml
+/kafka-pixy*
 *.exe
 *.test
 *.prof
